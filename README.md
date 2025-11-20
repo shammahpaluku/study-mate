@@ -1,8 +1,12 @@
-# Study Mate
+# Study Mate 📚
 
-A modern desktop application for managing study materials, notes, and learning progress.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/shammahpaluku/study-mate?style=social)](https://github.com/shammahpaluku/study-mate/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/shammahpaluku/study-mate)](https://github.com/shammahpaluku/study-mate/issues)
 
-## Features
+A modern desktop application for managing study materials, notes, and learning progress. Built with Electron, React, TypeScript, and Chakra UI.
+
+## ✨ Features
 
 - **Cross-platform** - Works on Windows, macOS, and Linux
 - **Modern UI** - Built with React and Chakra UI
@@ -16,7 +20,7 @@ A modern desktop application for managing study materials, notes, and learning p
 - PostgreSQL 12 or later
 - npm or yarn
 
-## Getting Started
+## 🚀 Getting Started
 
 1. Clone the repository:
    ```bash
@@ -45,7 +49,7 @@ A modern desktop application for managing study materials, notes, and learning p
    npm start
    ```
 
-## Project Structure
+## 🏗️ Project Structure
 
 ```
 study-mate/
@@ -61,7 +65,7 @@ study-mate/
 └── README.md
 ```
 
-## Available Scripts
+## 🛠️ Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
@@ -69,6 +73,21 @@ study-mate/
 - `npm run lint` - Run ESLint
 - `npm run format` - Format code with Prettier
 
-## License
+## 🤝 Contributing
 
-MIT
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) to get started.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Electron](https://www.electronjs.org/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Chakra UI](https://chakra-ui.com/)
+
+---
+
+Built with ❤️ by [Shammah Paluku](https://github.com/shammahpaluku)
