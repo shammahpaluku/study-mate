@@ -1,0 +1,215 @@
+System Requirements Specification (SRS) — Study_Mate
+1. System Overview
+
+Study_Mate is an adaptive study-planning platform that captures a learner’s academic workload, difficulty perceptions, unit types, and available study hours, then generates a personalized timetable. The system emphasizes simplicity, modularity, and low operational overhead while enabling intelligent workload orchestration.
+
+2. Functional Requirements
+2.1 User Management
+2.1.1 Account Registration
+
+Users can create an account using email or phone.
+
+System stores name, institution (optional), and academic level.
+
+Password hashing for secure storage.
+
+2.1.2 Login & Authentication
+
+Users authenticate with email + password.
+
+Session management with JWT or secure cookies.
+
+2.1.3 Profile Creation
+
+User inputs:
+
+Number of units
+
+Unit names (optional)
+
+Difficulty rating for each (easy / moderate / hard)
+
+Unit type (exam / practical / project-based)
+
+Expected assessment dates (optional)
+
+Study preference (long blocks / short sprints / mixed)
+
+Weekly and daily availability
+
+2.2 Study Input Module
+2.2.1 Unit Configuration
+
+System captures and stores unit meta-data.
+
+Each unit is assigned weights based on:
+
+Difficulty
+
+Assessment type
+
+Time sensitivity (e.g., exam nearing)
+
+2.2.2 Availability Capture
+
+User provides:
+
+Daily available hours (per day)
+
+Weekly free days
+
+Preferences for morning/afternoon/evening sessions
+
+2.3 Allocation Engine
+
+The core logic unit.
+
+2.3.1 Time Distribution
+
+System distributes study hours across units proportionally to their weighted difficulty.
+
+Ensures practical/project units get long-form blocks.
+
+Ensures exam units get boosted allocation near exam period.
+
+2.3.2 Conflict Resolution
+
+If the user's available time is insufficient for the computed plan:
+
+System proposes optimized load-reduction options.
+
+System auto-shifts low-priority units to different slots.
+
+2.3.3 Timetable Optimization
+
+Balances intensity across days (avoiding “burnout days”).
+
+Ensures no two hard units stack back-to-back unless requested.
+
+Applies cognitive load balancing heuristics.
+
+2.4 Timetable Generator
+2.4.1 Output Formats
+
+Weekly dashboard view
+
+Day-by-day schedule
+
+Printable PDF export (optional)
+
+Mobile-friendly compact layout
+
+2.4.2 Study Block Types
+
+Deep-focus blocks (60–90 min)
+
+Sprint blocks (25–30 min)
+
+Revision blocks
+
+Break allocations (configurable)
+
+2.4.3 Regeneration
+
+User can regenerate the timetable after changing:
+
+Difficulty levels
+
+Time availability
+
+Unit priorities
+
+New assessment dates
+
+2.5 Add-On Modules (Optional but Supported)
+2.5.1 Progress Tracking
+
+Users mark sessions as complete/missed.
+
+System recalibrates the schedule based on execution reality.
+
+2.5.2 Stress Index Monitor
+
+Tracks over-scheduling signals (e.g., too many hours/day).
+
+Suggests workload smoothing.
+
+2.5.3 Exam Proximity Boost
+
+Automatically increases allocation as exam date nears.
+
+2.5.4 Intelligent Revision Engine
+
+Generates micro-revision summaries or flashcards (AI-driven).
+
+3. Non-Functional Requirements
+3.1 Performance
+
+Schedule generation should not exceed 1.5 seconds.
+
+System must support up to 10,000 concurrent users (scalable via container orchestration).
+
+3.2 Usability
+
+Intuitive onboarding with minimal data entry friction.
+
+Clean UI with 3-click rule to generate a full study plan.
+
+3.3 Reliability
+
+99% uptime target for cloud deployment.
+
+Autosave after each user input step.
+
+3.4 Security
+
+AES-256 for data-at-rest.
+
+TLS 1.3 for all communications.
+
+Strict permission boundaries—no admin overrides of personal schedules.
+
+3.5 Scalability
+
+Modular backend to support:
+
+More unit attributes
+
+AI insights
+
+Institutional-level dashboards (future)
+
+3.6 Maintainability
+
+Microservice-ready architecture.
+
+Clear module boundaries (User, Units, Engine, Timetable, Add-ons).
+
+Environment-agnostic setup (Docker-first approach).
+
+4. System Architecture Overview
+
+Frontend: React / Next.js (mobile-first responsive design)
+
+Backend: Node.js (Express) or FastAPI (Python) — both are compatible
+
+Database: PostgreSQL (relational workload fits perfectly)
+
+Model Layer: Weighted rule-based engine + optional ML addon
+
+Deployment: Docker containers, CI/CD pipelines, scalable via Kubernetes or lightweight Docker Swarm
+
+5. External Interfaces
+5.1 API Interface
+
+RESTful JSON endpoints for all components.
+
+OAuth2-ready for institutions.
+
+5.2 Integrations (Future-facing)
+
+LMS integration (Moodle, Blackboard)
+
+Calendar integration (Google Calendar / iCal)
+
+Device notifications (Firebase Cloud Messaging)
