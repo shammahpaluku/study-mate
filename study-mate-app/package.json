@@ -1,8 +1,11 @@
 {
   "name": "study-mate-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "A comprehensive study companion application with scheduling, analytics, and progress tracking",
   "main": "dist/main.js",
+  "homepage": "https://github.com/yourusername/study-mate",
+  "author": "Your Name",
+  "license": "MIT",
   "scripts": {
     "test": "echo 'No tests specified' && exit 0",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
@@ -11,11 +14,80 @@
     "build:renderer": "cross-env NODE_ENV=production webpack --config webpack.renderer.config.js",
     "build": "npm run build:main && npm run build:renderer",
     "start": "cross-env NODE_ENV=production electron .",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack --config webpack.renderer.config.js --watch\" \"cross-env NODE_ENV=development electron .\""
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack --config webpack.renderer.config.js --watch\" \"cross-env NODE_ENV=development electron .\"",
+    "dist": "npm run build && electron-builder",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:linux": "npm run build && electron-builder --linux",
+    "publish": "npm run build && electron-builder --publish=always"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["study", "education", "planner", "electron", "react", "chakra-ui", "typescript", "productivity", "learning"],
+  "build": {
+    "appId": "com.studymate.app",
+    "productName": "Study Mate",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "dist/main.js"
+    },
+    "forceCodeSigning": false,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "arm64"]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        },
+        {
+          "target": "rpm",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Study Mate"
+    },
+    "portable": {
+      "artifactName": "StudyMate-Portable-${version}.${ext}"
+    }
+  },
   "devDependencies": {
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.6",
@@ -44,7 +116,8 @@
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",
-    "@chakra-ui/react": "^3.29.0",
+    "@chakra-ui/react": "^2.10.9",
+    "@chakra-ui/theme-tools": "^2.2.6",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^5.2.2",
@@ -52,16 +125,21 @@
     "@types/handlebars": "^4.1.0",
     "@types/nodemailer": "^7.0.4",
     "@types/yup": "^0.32.0",
+    "css-loader": "^7.1.2",
     "dotenv": "^17.2.3",
     "formik": "^2.4.9",
     "framer-motion": "^12.23.24",
     "handlebars": "^4.7.8",
+    "html-webpack-plugin": "^5.6.5",
     "nodemailer": "^7.0.10",
     "pg": "^8.16.3",
+    "postcss-loader": "^8.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.6",
     "reflect-metadata": "^0.2.2",
+    "style-loader": "^4.0.0",
     "typeorm": "^0.3.27",
     "yup": "^1.7.1"
   }

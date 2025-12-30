@@ -1,58 +1,11 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
-import { DataSource, Repository, ObjectLiteral } from 'typeorm';
-import { User } from '../entities/User';
-import { Unit } from '../entities/Unit';
-import { StudyPlan } from '../entities/StudyPlan';
-import { StudySession } from '../entities/StudySession';
-import { ProgressLog } from '../entities/ProgressLog';
-
-type Entity = User | Unit | StudyPlan | StudySession | ProgressLog;
-type EntityType = new () => Entity;
-type EntityName = 'user' | 'unit' | 'studyPlan' | 'studySession' | 'progressLog';
-
-const entityMap: Record<EntityName, EntityType> = {
-  user: User,
-  unit: Unit,
-  studyPlan: StudyPlan,
-  studySession: StudySession,
-  progressLog: ProgressLog,
-};
 
 let mainWindow: BrowserWindow | null = null;
 
-export const AppDataSource = new DataSource({
-  type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'postgres',
-  database: 'study_mate',
-  synchronize: true,
-  logging: true,
-  entities: [User, Unit, StudyPlan, StudySession, ProgressLog],
-  subscribers: [],
-  migrations: [],
-});
-
-// Type-safe repository method access
-const ALLOWED_METHODS = ['find', 'findOne', 'save', 'update', 'delete'] as const;
-type RepositoryMethod = typeof ALLOWED_METHODS[number];
-
-function isRepositoryMethod(method: string): method is RepositoryMethod {
-  return (ALLOWED_METHODS as readonly string[]).includes(method);
-}
-
 function createWindow() {
-  // Initialize the database connection
-  AppDataSource.initialize()
-    .then(() => {
-      console.log('Database connection established');
-    })
-    .catch((error) => {
-      console.error('Database connection error:', error);
-    });
-
+  console.log('Creating window...');
+  
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1200,
@@ -60,22 +13,41 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'),
     },
   });
 
+  console.log('Window created, loading file...');
+
   // Load the index.html file
+  mainWindow.loadFile(path.join(__dirname, 'index.html'))
+    .then(() => {
+      console.log('File loaded successfully');
+    })
+    .catch((error) => {
+      console.error('Failed to load file:', error);
+    });
+  
+  // Open the DevTools in development mode
   if (process.env.NODE_ENV === 'development') {
-    mainWindow.loadURL('http://localhost:3000');
-    // Open the DevTools in development mode
     mainWindow.webContents.openDevTools();
-  } else {
-    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
   }
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
+    console.log('Window closed');
     mainWindow = null;
+  });
+
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error('Failed to load:', errorCode, errorDescription);
+  });
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    console.log('Page finished loading');
+  });
+
+  mainWindow.webContents.on('console-message', (event, level, message, line, sourceId) => {
+    console.log('Renderer console:', message);
   });
 }
 
@@ -95,39 +67,9 @@ app.whenReady().then(() => {
 
 // Quit when all windows are closed, except on macOS.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+  console.log('All windows closed');
+  // Don't quit automatically on Windows
+  if (process.platform === 'darwin') {
     app.quit();
-  }
-});
-
-// IPC handlers for database operations
-ipcMain.handle('database:query', async (event, { 
-  entity, 
-  method, 
-  params = [] 
-}: { 
-  entity: EntityName; 
-  method: string; 
-  params: any[];
-}) => {
-  const entityClass = entityMap[entity];
-  if (!entityClass) {
-    throw new Error(`Invalid entity: ${entity}`);
-  }
-  
-  if (!isRepositoryMethod(method)) {
-    throw new Error(`Method ${method} is not allowed`);
-  }
-
-  const repository = AppDataSource.getRepository(entityClass);
-  try {
-    const repoMethod = repository[method];
-    if (typeof repoMethod === 'function') {
-      return await (repoMethod as (...args: any[]) => any)(...params);
-    }
-    throw new Error(`Method ${method} is not a function on repository`);
-  } catch (error) {
-    console.error('Database operation failed:', error);
-    throw error;
   }
 });

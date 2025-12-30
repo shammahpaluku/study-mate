@@ -12,6 +12,7 @@ const config = {
       {
         test: /\.ts(x?)$/,
         include: /src/,
+        exclude: [/pages\/LoginPage/, /pages\/RegisterPage/, /pages\/VerifyEmailPage/, /pages\/ForgotPasswordPage/, /pages\/ResetPasswordPage/],
         use: [{ loader: 'ts-loader' }]
       },
       {
