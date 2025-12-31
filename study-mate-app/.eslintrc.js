@@ -22,6 +22,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'react-hooks',
     '@typescript-eslint',
     'jsx-a11y',
     'prettier',
