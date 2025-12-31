@@ -115,7 +115,7 @@ const StudyPlanGenerator: React.FC<StudyPlanGeneratorProps> = ({
     const totalAvailableHours = availability.dailyHours * availability.weeklyDays.length;
     const totalWeightScore = units.reduce((sum, unit) => sum + unit.weightScore, 0);
     
-    let warnings: string[] = [];
+    const warnings: string[] = [];
     let stressIndex = 0;
 
     // Calculate time allocation per unit

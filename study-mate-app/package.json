@@ -1,6 +1,7 @@
 {
   "name": "study-mate-app",
   "version": "1.0.0",
+  "type": "module",
   "description": "A comprehensive study companion application with scheduling, analytics, and progress tracking",
   "main": "dist/main.js",
   "homepage": "https://github.com/yourusername/study-mate",
@@ -8,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "test": "echo 'No tests specified' && exit 0",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint": "eslint src/**/*.{ts,tsx}",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,json,css,md}'",
     "build:main": "cross-env NODE_ENV=production webpack --config webpack.main.config.js",
     "build:renderer": "cross-env NODE_ENV=production webpack --config webpack.renderer.config.js",

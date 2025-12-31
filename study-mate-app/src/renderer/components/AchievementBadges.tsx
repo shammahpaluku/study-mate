@@ -83,21 +83,27 @@ const AchievementBadges: React.FC = () => {
           shouldUnlock = activities.length > 0;
           break;
         case '2': // 100 hours
-          const totalMinutes = activities.reduce((acc: number, act: any) => acc + act.duration, 0);
-          shouldUnlock = totalMinutes >= 6000; // 100 hours in minutes
+          {
+            const totalMinutes = activities.reduce((acc: number, act: any) => acc + act.duration, 0);
+            shouldUnlock = totalMinutes >= 6000; // 100 hours in minutes
+          }
           break;
         case '3': // 7-day streak
-          const streak = calculateStreak(activities);
-          shouldUnlock = streak >= 7;
+          {
+            const streak = calculateStreak(activities);
+            shouldUnlock = streak >= 7;
+          }
           break;
         case '4': // First goal completed
           shouldUnlock = goals.some((goal: any) => goal.completed);
           break;
         case '5': // 30 days in month
-          const uniqueDays = new Set(
-            activities.map((act: any) => new Date(act.timestamp).toDateString())
-          ).size;
-          shouldUnlock = uniqueDays >= 30;
+          {
+            const uniqueDays = new Set(
+              activities.map((act: any) => new Date(act.timestamp).toDateString())
+            ).size;
+            shouldUnlock = uniqueDays >= 30;
+          }
           break;
       }
 
