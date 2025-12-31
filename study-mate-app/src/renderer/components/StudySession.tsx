@@ -1,18 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Text, VStack, HStack, Button, Input, Textarea, 
-         Icon, useToast, Modal, ModalOverlay, ModalContent, 
-         ModalHeader, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react';
-import { FiPlay, FiPause, FiSquare, FiSave } from 'react-icons/fi';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Text,
+  VStack,
+  HStack,
+  Button,
+  Input,
+  Textarea,
+  Icon,
+  useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { FiPlay, FiPause, FiSquare, FiSave } from "react-icons/fi";
 
 interface StudySessionProps {
-  onStartSession: (sessionData: { subject: string; notes: string; duration: number }) => void;
+  onStartSession: (sessionData: {
+    subject: string;
+    notes: string;
+    duration: number;
+  }) => void;
 }
 
 const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
-  const [subject, setSubject] = useState('');
-  const [notes, setNotes] = useState('');
+  const [subject, setSubject] = useState("");
+  const [notes, setNotes] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -20,7 +39,7 @@ const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
     let interval: NodeJS.Timeout;
     if (isRunning) {
       interval = setInterval(() => {
-        setSeconds(s => s + 1);
+        setSeconds((s) => s + 1);
       }, 1000);
     }
     return () => clearInterval(interval);
@@ -30,7 +49,7 @@ const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const secs = totalSeconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   const handleStart = () => {
@@ -62,15 +81,15 @@ const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
   const handleReset = () => {
     setIsRunning(false);
     setSeconds(0);
-    setSubject('');
-    setNotes('');
+    setSubject("");
+    setNotes("");
   };
 
   const handleSaveSession = () => {
     onStartSession({
       subject: subject.trim(),
       notes: notes.trim(),
-      duration: seconds
+      duration: seconds,
     });
     onClose();
     handleReset();
@@ -85,10 +104,10 @@ const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
 
   return (
     <>
-      <Box 
-        p={6} 
-        borderWidth={1} 
-        borderRadius="lg" 
+      <Box
+        p={6}
+        borderWidth={1}
+        borderRadius="lg"
         borderColor="gray.200"
         bg="white"
         boxShadow="sm"
@@ -99,10 +118,15 @@ const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
           </Text>
 
           <VStack spacing={3} align="center" py={4}>
-            <Text fontSize="4xl" fontWeight="bold" color="blue.600" fontFamily="mono">
+            <Text
+              fontSize="4xl"
+              fontWeight="bold"
+              color="blue.600"
+              fontFamily="mono"
+            >
               {formatTime(seconds)}
             </Text>
-            
+
             <Input
               placeholder="What are you studying?"
               value={subject}
@@ -115,16 +139,16 @@ const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
 
           <HStack spacing={3}>
             {!isRunning ? (
-              <Button 
+              <Button
                 leftIcon={<FiPlay />}
                 colorScheme="green"
                 onClick={handleStart}
-                disabled={seconds > 0 && subject === ''}
+                disabled={seconds > 0 && subject === ""}
               >
                 Start
               </Button>
             ) : (
-              <Button 
+              <Button
                 leftIcon={<FiPause />}
                 colorScheme="yellow"
                 onClick={handlePause}
@@ -132,8 +156,8 @@ const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
                 Pause
               </Button>
             )}
-            
-            <Button 
+
+            <Button
               leftIcon={<FiSquare />}
               colorScheme="red"
               onClick={handleStop}
@@ -153,17 +177,23 @@ const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
           <ModalBody pb={6}>
             <VStack spacing={4}>
               <Box w="100%">
-                <Text fontWeight="600" mb={2}>Subject:</Text>
+                <Text fontWeight="600" mb={2}>
+                  Subject:
+                </Text>
                 <Text color="gray.700">{subject}</Text>
               </Box>
-              
+
               <Box w="100%">
-                <Text fontWeight="600" mb={2}>Duration:</Text>
+                <Text fontWeight="600" mb={2}>
+                  Duration:
+                </Text>
                 <Text color="gray.700">{formatTime(seconds)}</Text>
               </Box>
-              
+
               <Box w="100%">
-                <Text fontWeight="600" mb={2}>Notes (optional):</Text>
+                <Text fontWeight="600" mb={2}>
+                  Notes (optional):
+                </Text>
                 <Textarea
                   placeholder="Add notes about what you learned..."
                   value={notes}
@@ -171,14 +201,14 @@ const StudySession: React.FC<StudySessionProps> = ({ onStartSession }) => {
                   rows={4}
                 />
               </Box>
-              
+
               <HStack spacing={3} w="100%">
                 <Button onClick={onClose} variant="outline" flex={1}>
                   Cancel
                 </Button>
-                <Button 
+                <Button
                   leftIcon={<FiSave />}
-                  colorScheme="blue" 
+                  colorScheme="blue"
                   onClick={handleSaveSession}
                   flex={1}
                 >

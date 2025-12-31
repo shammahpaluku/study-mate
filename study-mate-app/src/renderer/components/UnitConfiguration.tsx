@@ -1,18 +1,46 @@
-import React, { useState } from 'react';
-import { 
-  Box, VStack, HStack, Text, Button, Input, Select, 
-  NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper,
-  FormControl, FormLabel, FormErrorMessage, Icon, Divider, IconButton,
-  useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton,
-  useDisclosure, Badge
-} from '@chakra-ui/react';
-import { FiPlus, FiTrash2, FiCalendar, FiTarget, FiClock } from 'react-icons/fi';
+import React, { useState } from "react";
+import {
+  Box,
+  VStack,
+  HStack,
+  Text,
+  Button,
+  Input,
+  Select,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Icon,
+  Divider,
+  IconButton,
+  useToast,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Badge,
+} from "@chakra-ui/react";
+import {
+  FiPlus,
+  FiTrash2,
+  FiCalendar,
+  FiTarget,
+  FiClock,
+} from "react-icons/fi";
 
 export interface Unit {
   id: string;
   name: string;
-  difficulty: 'easy' | 'moderate' | 'hard';
-  type: 'exam' | 'practical' | 'project';
+  difficulty: "easy" | "moderate" | "hard";
+  type: "exam" | "practical" | "project";
   assessmentDate?: string;
   weightScore: number;
 }
@@ -22,12 +50,15 @@ interface UnitConfigurationProps {
   onUnitsChange: (units: Unit[]) => void;
 }
 
-const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsChange }) => {
+const UnitConfiguration: React.FC<UnitConfigurationProps> = ({
+  units,
+  onUnitsChange,
+}) => {
   const [newUnit, setNewUnit] = useState<Partial<Unit>>({
-    name: '',
-    difficulty: 'moderate',
-    type: 'exam',
-    assessmentDate: ''
+    name: "",
+    difficulty: "moderate",
+    type: "exam",
+    assessmentDate: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,17 +67,19 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
   const calculateWeight = (difficulty: string, type: string): number => {
     const difficultyScores = { easy: 1, moderate: 2, hard: 3 };
     const typeMultipliers = { exam: 1.5, practical: 1.2, project: 1.0 };
-    return difficultyScores[difficulty as keyof typeof difficultyScores] * 
-           typeMultipliers[type as keyof typeof typeMultipliers];
+    return (
+      difficultyScores[difficulty as keyof typeof difficultyScores] *
+      typeMultipliers[type as keyof typeof typeMultipliers]
+    );
   };
 
   const validateUnit = (unit: Partial<Unit>): boolean => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!unit.name?.trim()) {
-      newErrors.name = 'Unit name is required';
+      newErrors.name = "Unit name is required";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -60,19 +93,19 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
       difficulty: newUnit.difficulty!,
       type: newUnit.type!,
       assessmentDate: newUnit.assessmentDate,
-      weightScore: calculateWeight(newUnit.difficulty!, newUnit.type!)
+      weightScore: calculateWeight(newUnit.difficulty!, newUnit.type!),
     };
 
     onUnitsChange([...units, unit]);
     setNewUnit({
-      name: '',
-      difficulty: 'moderate',
-      type: 'exam',
-      assessmentDate: ''
+      name: "",
+      difficulty: "moderate",
+      type: "exam",
+      assessmentDate: "",
     });
     setErrors({});
     onClose();
-    
+
     toast({
       title: "Unit added",
       description: `${unit.name} has been added to your study plan`,
@@ -83,9 +116,9 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
   };
 
   const handleRemoveUnit = (id: string) => {
-    const unit = units.find(u => u.id === id);
-    onUnitsChange(units.filter(u => u.id !== id));
-    
+    const unit = units.find((u) => u.id === id);
+    onUnitsChange(units.filter((u) => u.id !== id));
+
     toast({
       title: "Unit removed",
       description: `${unit?.name} has been removed from your study plan`,
@@ -96,12 +129,12 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
   };
 
   const getDifficultyColor = (difficulty: string) => {
-    const colors = { easy: 'green', moderate: 'yellow', hard: 'red' };
+    const colors = { easy: "green", moderate: "yellow", hard: "red" };
     return colors[difficulty as keyof typeof colors];
   };
 
   const getTypeColor = (type: string) => {
-    const colors = { exam: 'blue', practical: 'purple', project: 'orange' };
+    const colors = { exam: "blue", practical: "purple", project: "orange" };
     return colors[type as keyof typeof colors];
   };
 
@@ -118,10 +151,10 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
         </HStack>
 
         {units.length === 0 ? (
-          <Box 
-            p={8} 
-            borderWidth={1} 
-            borderRadius="lg" 
+          <Box
+            p={8}
+            borderWidth={1}
+            borderRadius="lg"
             borderColor="gray.200"
             bg="white"
             boxShadow="sm"
@@ -140,11 +173,11 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
         ) : (
           <VStack spacing={3} align="stretch">
             {units.map((unit) => (
-              <Box 
+              <Box
                 key={unit.id}
-                p={4} 
-                borderWidth={1} 
-                borderRadius="lg" 
+                p={4}
+                borderWidth={1}
+                borderRadius="lg"
                 borderColor="gray.200"
                 bg="white"
                 boxShadow="sm"
@@ -154,9 +187,12 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
                     <Text fontWeight="600" color="gray.900" fontSize="md">
                       {unit.name}
                     </Text>
-                    
+
                     <HStack spacing={2}>
-                      <Badge colorScheme={getDifficultyColor(unit.difficulty)} size="sm">
+                      <Badge
+                        colorScheme={getDifficultyColor(unit.difficulty)}
+                        size="sm"
+                      >
                         {unit.difficulty}
                       </Badge>
                       <Badge colorScheme={getTypeColor(unit.type)} size="sm">
@@ -170,7 +206,10 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
                     {unit.assessmentDate && (
                       <HStack spacing={1} color="gray.600" fontSize="sm">
                         <Icon as={FiCalendar} boxSize={3} />
-                        <Text>Assessment: {new Date(unit.assessmentDate).toLocaleDateString()}</Text>
+                        <Text>
+                          Assessment:{" "}
+                          {new Date(unit.assessmentDate).toLocaleDateString()}
+                        </Text>
                       </HStack>
                     )}
                   </VStack>
@@ -202,7 +241,9 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
                 <Input
                   placeholder="e.g., Mathematics 101"
                   value={newUnit.name}
-                  onChange={(e) => setNewUnit({ ...newUnit, name: e.target.value })}
+                  onChange={(e) =>
+                    setNewUnit({ ...newUnit, name: e.target.value })
+                  }
                 />
                 <FormErrorMessage>{errors.name}</FormErrorMessage>
               </FormControl>
@@ -211,7 +252,12 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
                 <FormLabel>Difficulty Level</FormLabel>
                 <Select
                   value={newUnit.difficulty}
-                  onChange={(e) => setNewUnit({ ...newUnit, difficulty: e.target.value as any })}
+                  onChange={(e) =>
+                    setNewUnit({
+                      ...newUnit,
+                      difficulty: e.target.value as any,
+                    })
+                  }
                 >
                   <option value="easy">Easy</option>
                   <option value="moderate">Moderate</option>
@@ -223,7 +269,9 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
                 <FormLabel>Unit Type</FormLabel>
                 <Select
                   value={newUnit.type}
-                  onChange={(e) => setNewUnit({ ...newUnit, type: e.target.value as any })}
+                  onChange={(e) =>
+                    setNewUnit({ ...newUnit, type: e.target.value as any })
+                  }
                 >
                   <option value="exam">Exam</option>
                   <option value="practical">Practical</option>
@@ -236,7 +284,9 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
                 <Input
                   type="date"
                   value={newUnit.assessmentDate}
-                  onChange={(e) => setNewUnit({ ...newUnit, assessmentDate: e.target.value })}
+                  onChange={(e) =>
+                    setNewUnit({ ...newUnit, assessmentDate: e.target.value })
+                  }
                 />
               </FormControl>
 
@@ -244,11 +294,7 @@ const UnitConfiguration: React.FC<UnitConfigurationProps> = ({ units, onUnitsCha
                 <Button onClick={onClose} variant="outline" flex={1}>
                   Cancel
                 </Button>
-                <Button 
-                  colorScheme="blue" 
-                  onClick={handleAddUnit}
-                  flex={1}
-                >
+                <Button colorScheme="blue" onClick={handleAddUnit} flex={1}>
                   Add Unit
                 </Button>
               </HStack>

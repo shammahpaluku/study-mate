@@ -1,11 +1,28 @@
-import React from 'react';
-import { Box, VStack, HStack, Text, Button, Icon, Divider, useColorModeValue, Badge } from '@chakra-ui/react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { 
-  FiHome, FiBarChart2, FiCalendar, FiSettings, FiBook,
-  FiTarget, FiClock, FiTrendingUp, FiAward
-} from 'react-icons/fi';
-import Notifications, { useNotifications } from './Notifications';
+import React from "react";
+import {
+  Box,
+  VStack,
+  HStack,
+  Text,
+  Button,
+  Icon,
+  Divider,
+  useColorModeValue,
+  Badge,
+} from "@chakra-ui/react";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  FiHome,
+  FiBarChart2,
+  FiCalendar,
+  FiSettings,
+  FiBook,
+  FiTarget,
+  FiClock,
+  FiTrendingUp,
+  FiAward,
+} from "react-icons/fi";
+import Notifications, { useNotifications } from "./Notifications";
 
 interface NavigationProps {
   stats?: {
@@ -18,24 +35,30 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({ stats }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { notifications, addNotification, markAsRead, dismissNotification, clearAll } = useNotifications();
+  const {
+    notifications,
+    addNotification,
+    markAsRead,
+    dismissNotification,
+    clearAll,
+  } = useNotifications();
 
   const menuItems = [
-    { path: '/', label: 'Home', icon: FiHome },
-    { path: '/dashboard', label: 'Dashboard', icon: FiBarChart2 },
-    { path: '/planner', label: 'Study Planner', icon: FiCalendar },
-    { path: '/analytics', label: 'Analytics', icon: FiTrendingUp },
-    { path: '/settings', label: 'Settings', icon: FiSettings }
+    { path: "/", label: "Home", icon: FiHome },
+    { path: "/dashboard", label: "Dashboard", icon: FiBarChart2 },
+    { path: "/planner", label: "Study Planner", icon: FiCalendar },
+    { path: "/analytics", label: "Analytics", icon: FiTrendingUp },
+    { path: "/settings", label: "Settings", icon: FiSettings },
   ];
 
   const handleNavigation = (path: string) => {
     navigate(path);
   };
 
-  const bg = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
-  const textColor = useColorModeValue('gray.700', 'gray.300');
-  const hoverBg = useColorModeValue('gray.50', 'gray.700');
+  const bg = useColorModeValue("white", "gray.800");
+  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const textColor = useColorModeValue("gray.700", "gray.300");
+  const hoverBg = useColorModeValue("gray.50", "gray.700");
 
   return (
     <Box
@@ -61,10 +84,20 @@ const Navigation: React.FC<NavigationProps> = ({ stats }) => {
               <Icon as={FiBook} boxSize={6} color="white" />
             </Box>
             <VStack spacing={0} align="start">
-              <Text fontSize="xl" fontWeight="bold" color="gray.900" letterSpacing="-0.025em">
+              <Text
+                fontSize="xl"
+                fontWeight="bold"
+                color="gray.900"
+                letterSpacing="-0.025em"
+              >
                 Study Mate
               </Text>
-              <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="0.05em">
+              <Text
+                fontSize="xs"
+                color="gray.500"
+                textTransform="uppercase"
+                letterSpacing="0.05em"
+              >
                 Learning Companion
               </Text>
             </VStack>
@@ -79,18 +112,18 @@ const Navigation: React.FC<NavigationProps> = ({ stats }) => {
             return (
               <Button
                 key={item.path}
-                variant={isActive ? 'solid' : 'ghost'}
-                colorScheme={isActive ? 'primary' : 'gray'}
+                variant={isActive ? "solid" : "ghost"}
+                colorScheme={isActive ? "primary" : "gray"}
                 justifyContent="flex-start"
                 leftIcon={<Icon as={item.icon} boxSize={5} />}
                 onClick={() => handleNavigation(item.path)}
                 borderRadius="lg"
-                fontWeight={isActive ? '600' : '500'}
+                fontWeight={isActive ? "600" : "500"}
                 py={3}
                 px={4}
                 transition="all 0.2s ease-in-out"
                 _hover={{
-                  transform: 'translateX(2px)',
+                  transform: "translateX(2px)",
                   bg: isActive ? undefined : hoverBg,
                 }}
               >
@@ -104,11 +137,17 @@ const Navigation: React.FC<NavigationProps> = ({ stats }) => {
 
         {/* Enhanced Quick Stats */}
         {stats && (
-          <Box p={4} borderRadius="lg" bg={useColorModeValue('gray.50', 'gray.700')} borderWidth={1} borderColor={borderColor}>
+          <Box
+            p={4}
+            borderRadius="lg"
+            bg={useColorModeValue("gray.50", "gray.700")}
+            borderWidth={1}
+            borderColor={borderColor}
+          >
             <Text fontSize="sm" fontWeight="600" color="gray.700" mb={4}>
               Today's Progress
             </Text>
-            
+
             <VStack spacing={3} align="stretch">
               <HStack spacing={3} justify="space-between">
                 <HStack spacing={2}>

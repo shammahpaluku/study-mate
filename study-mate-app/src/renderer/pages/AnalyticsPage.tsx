@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { Box, VStack, HStack, Text, Heading, Container, Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
-import StudyAnalytics from '../components/StudyAnalytics';
-import StudyCalendar from '../components/StudyCalendar';
-import StudyStreak from '../components/StudyStreak';
-import { useNotifications } from '../components/Notifications';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  VStack,
+  HStack,
+  Text,
+  Heading,
+  Container,
+  Grid,
+  GridItem,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import StudyAnalytics from "../components/StudyAnalytics";
+import StudyCalendar from "../components/StudyCalendar";
+import StudyStreak from "../components/StudyStreak";
+import { useNotifications } from "../components/Notifications";
 
 const AnalyticsPage: React.FC = () => {
   const { addNotification } = useNotifications();
 
   useEffect(() => {
     addNotification({
-      title: 'Analytics Dashboard',
-      message: 'Track your learning patterns and progress',
-      type: 'info'
+      title: "Analytics Dashboard",
+      message: "Track your learning patterns and progress",
+      type: "info",
     });
   }, []);
 
-  const bg = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
+  const bg = useColorModeValue("white", "gray.800");
+  const borderColor = useColorModeValue("gray.200", "gray.700");
 
   return (
     <Container maxW="container.xl" py={8}>
@@ -31,7 +41,7 @@ const AnalyticsPage: React.FC = () => {
           </Text>
         </Box>
 
-        <Grid templateColumns={{ base: '1fr', lg: '2fr 1fr' }} gap={6}>
+        <Grid templateColumns={{ base: "1fr", lg: "2fr 1fr" }} gap={6}>
           <GridItem>
             <VStack spacing={6}>
               <StudyAnalytics />

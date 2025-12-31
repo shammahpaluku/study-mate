@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button as ChakraButton, ButtonProps, Spinner } from '@chakra-ui/react';
+import React from "react";
+import { Button as ChakraButton, ButtonProps, Spinner } from "@chakra-ui/react";
 
 interface CustomButtonProps extends ButtonProps {
   loading?: boolean;
@@ -27,21 +27,19 @@ const Button: React.FC<CustomButtonProps> = ({
       disabled={disabled || loading}
       _disabled={{
         opacity: 0.6,
-        cursor: 'not-allowed',
+        cursor: "not-allowed",
       }}
       _hover={{
-        transform: 'translateY(-1px)',
-        boxShadow: 'md',
+        transform: "translateY(-1px)",
+        boxShadow: "md",
       }}
       _active={{
-        transform: 'translateY(0)',
-        boxShadow: 'sm',
+        transform: "translateY(0)",
+        boxShadow: "sm",
       }}
       {...rest}
     >
-      {loading && !loadingText && (
-        <Spinner size="sm" mr={2} />
-      )}
+      {loading && !loadingText && <Spinner size="sm" mr={2} />}
       {children}
     </ChakraButton>
   );

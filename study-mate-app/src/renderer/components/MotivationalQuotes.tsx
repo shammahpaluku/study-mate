@@ -1,35 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Text, Icon, VStack, HStack, Button, useColorModeValue } from '@chakra-ui/react';
-import { FiRefreshCw, FiHeart } from 'react-icons/fi';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Text,
+  Icon,
+  VStack,
+  HStack,
+  Button,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { FiRefreshCw, FiHeart } from "react-icons/fi";
 
 const quotes = [
-  { text: "The expert in anything was once a beginner.", author: "Helen Hayes" },
-  { text: "Success is the sum of small efforts repeated day in and day out.", author: "Robert Collier" },
-  { text: "The beautiful thing about learning is that nobody can take it away from you.", author: "B.B. King" },
-  { text: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela" },
-  { text: "The more that you read, the more things you will know.", author: "Dr. Seuss" },
-  { text: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Mahatma Gandhi" },
-  { text: "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.", author: "Brian Herbert" },
+  {
+    text: "The expert in anything was once a beginner.",
+    author: "Helen Hayes",
+  },
+  {
+    text: "Success is the sum of small efforts repeated day in and day out.",
+    author: "Robert Collier",
+  },
+  {
+    text: "The beautiful thing about learning is that nobody can take it away from you.",
+    author: "B.B. King",
+  },
+  {
+    text: "Education is the most powerful weapon which you can use to change the world.",
+    author: "Nelson Mandela",
+  },
+  {
+    text: "The more that you read, the more things you will know.",
+    author: "Dr. Seuss",
+  },
+  {
+    text: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+    author: "Mahatma Gandhi",
+  },
+  {
+    text: "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.",
+    author: "Brian Herbert",
+  },
   { text: "Learning never exhausts the mind.", author: "Leonardo da Vinci" },
-  { text: "The illiterate of the 21st century will not be those who cannot read and write, but those who cannot learn, unlearn, and relearn.", author: "Alvin Toffler" },
-  { text: "Education is not preparation for life; education is life itself.", author: "John Dewey" },
-  { text: "The only person who is educated is the one who has learned how to learn and change.", author: "Carl Rogers" },
-  { text: "Learning is a treasure that will follow its owner everywhere.", author: "Chinese Proverb" }
+  {
+    text: "The illiterate of the 21st century will not be those who cannot read and write, but those who cannot learn, unlearn, and relearn.",
+    author: "Alvin Toffler",
+  },
+  {
+    text: "Education is not preparation for life; education is life itself.",
+    author: "John Dewey",
+  },
+  {
+    text: "The only person who is educated is the one who has learned how to learn and change.",
+    author: "Carl Rogers",
+  },
+  {
+    text: "Learning is a treasure that will follow its owner everywhere.",
+    author: "Chinese Proverb",
+  },
 ];
 
 interface MotivationalQuotesProps {
   refreshInterval?: number;
 }
 
-const MotivationalQuotes: React.FC<MotivationalQuotesProps> = ({ refreshInterval = 30000 }) => {
+const MotivationalQuotes: React.FC<MotivationalQuotesProps> = ({
+  refreshInterval = 30000,
+}) => {
   const [currentQuote, setCurrentQuote] = useState(quotes[0]);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  
+
   const bgGradient = useColorModeValue(
-    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    'linear-gradient(135deg, #4a5568 0%, #2d3748 100%)'
+    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    "linear-gradient(135deg, #4a5568 0%, #2d3748 100%)",
   );
-  const textColor = useColorModeValue('white', 'gray.100');
+  const textColor = useColorModeValue("white", "gray.100");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -79,7 +122,7 @@ const MotivationalQuotes: React.FC<MotivationalQuotesProps> = ({ refreshInterval
         <Text fontSize="2xl" color={textColor} opacity={0.8}>
           "
         </Text>
-        
+
         <Text
           fontSize="lg"
           fontWeight="500"
@@ -90,7 +133,7 @@ const MotivationalQuotes: React.FC<MotivationalQuotesProps> = ({ refreshInterval
         >
           "{currentQuote.text}"
         </Text>
-        
+
         <HStack spacing={2} align="center">
           <Text fontSize="sm" color={textColor} opacity={0.9}>
             — {currentQuote.author}
@@ -105,7 +148,7 @@ const MotivationalQuotes: React.FC<MotivationalQuotesProps> = ({ refreshInterval
           leftIcon={<FiRefreshCw />}
           onClick={getRandomQuote}
           isLoading={isRefreshing}
-          _hover={{ bg: 'rgba(255, 255, 255, 0.1)' }}
+          _hover={{ bg: "rgba(255, 255, 255, 0.1)" }}
         >
           New Quote
         </Button>

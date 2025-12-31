@@ -1,16 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Box, VStack, HStack, Text, Badge, Icon, Button, 
-  useToast, Alert, AlertIcon, AlertTitle, CloseButton,
-  SlideFade, ScaleFade, Fade
-} from '@chakra-ui/react';
-import { FiBell, FiX, FiCheck, FiClock, FiAlertTriangle, FiInfo } from 'react-icons/fi';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  VStack,
+  HStack,
+  Text,
+  Badge,
+  Icon,
+  Button,
+  useToast,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  CloseButton,
+  SlideFade,
+  ScaleFade,
+  Fade,
+} from "@chakra-ui/react";
+import {
+  FiBell,
+  FiX,
+  FiCheck,
+  FiClock,
+  FiAlertTriangle,
+  FiInfo,
+} from "react-icons/fi";
 
 export interface Notification {
   id: string;
   title: string;
   message: string;
-  type: 'info' | 'success' | 'warning' | 'error';
+  type: "info" | "success" | "warning" | "error";
   timestamp: Date;
   read: boolean;
   action?: {
@@ -30,38 +49,40 @@ const Notifications: React.FC<NotificationsProps> = ({
   notifications,
   onNotificationRead,
   onNotificationDismiss,
-  onClearAll
+  onClearAll,
 }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const toast = useToast();
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unreadCount = notifications.filter((n) => !n.read).length;
 
   const getNotificationIcon = (type: string) => {
     const icons = {
       info: FiInfo,
       success: FiCheck,
       warning: FiAlertTriangle,
-      error: FiAlertTriangle
+      error: FiAlertTriangle,
     };
     return icons[type as keyof typeof icons] || FiInfo;
   };
 
   const getNotificationColor = (type: string) => {
     const colors = {
-      info: 'blue',
-      success: 'green',
-      warning: 'yellow',
-      error: 'red'
+      info: "blue",
+      success: "green",
+      warning: "yellow",
+      error: "red",
     };
-    return colors[type as keyof typeof colors] || 'blue';
+    return colors[type as keyof typeof colors] || "blue";
   };
 
   const formatTimestamp = (date: Date) => {
     const now = new Date();
-    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
-    
-    if (diffInMinutes < 1) return 'Just now';
+    const diffInMinutes = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60),
+    );
+
+    if (diffInMinutes < 1) return "Just now";
     if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
     if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
     return `${Math.floor(diffInMinutes / 1440)}d ago`;
@@ -100,7 +121,7 @@ const Notifications: React.FC<NotificationsProps> = ({
             alignItems="center"
             justifyContent="center"
           >
-            {unreadCount > 9 ? '9+' : unreadCount}
+            {unreadCount > 9 ? "9+" : unreadCount}
           </Badge>
         )}
       </Button>
@@ -174,9 +195,9 @@ const Notifications: React.FC<NotificationsProps> = ({
                     borderBottomWidth={1}
                     borderColor="gray.100"
                     cursor="pointer"
-                    bg={!notification.read ? 'blue.50' : 'transparent'}
+                    bg={!notification.read ? "blue.50" : "transparent"}
                     onClick={() => handleNotificationClick(notification)}
-                    _hover={{ bg: 'gray.50' }}
+                    _hover={{ bg: "gray.50" }}
                     transition="background-color 0.2s"
                   >
                     <HStack spacing={3} align="flex-start">
@@ -190,7 +211,7 @@ const Notifications: React.FC<NotificationsProps> = ({
                       <VStack spacing={1} align="stretch" flex={1}>
                         <HStack justify="space-between" align="flex-start">
                           <Text
-                            fontWeight={!notification.read ? '600' : '500'}
+                            fontWeight={!notification.read ? "600" : "500"}
                             color="gray.900"
                             fontSize="sm"
                             flex={1}
@@ -216,7 +237,9 @@ const Notifications: React.FC<NotificationsProps> = ({
                             <Button
                               size="xs"
                               variant="outline"
-                              colorScheme={getNotificationColor(notification.type)}
+                              colorScheme={getNotificationColor(
+                                notification.type,
+                              )}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 notification.action!.onClick();
@@ -243,24 +266,26 @@ const Notifications: React.FC<NotificationsProps> = ({
 export const useNotifications = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  const addNotification = (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
+  const addNotification = (
+    notification: Omit<Notification, "id" | "timestamp" | "read">,
+  ) => {
     const newNotification: Notification = {
       ...notification,
       id: Date.now().toString(),
       timestamp: new Date(),
-      read: false
+      read: false,
     };
-    setNotifications(prev => [newNotification, ...prev]);
+    setNotifications((prev) => [newNotification, ...prev]);
   };
 
   const markAsRead = (id: string) => {
-    setNotifications(prev =>
-      prev.map(n => n.id === id ? { ...n, read: true } : n)
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
     );
   };
 
   const dismissNotification = (id: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
   const clearAll = () => {
@@ -272,7 +297,7 @@ export const useNotifications = () => {
     addNotification,
     markAsRead,
     dismissNotification,
-    clearAll
+    clearAll,
   };
 };
 

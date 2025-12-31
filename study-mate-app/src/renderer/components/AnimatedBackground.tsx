@@ -1,9 +1,9 @@
-import React from 'react';
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import React from "react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 
 const AnimatedBackground: React.FC = () => {
-  const bgColor = useColorModeValue('gray.50', 'gray.900');
-  
+  const bgColor = useColorModeValue("gray.50", "gray.900");
+
   return (
     <Box
       position="fixed"
@@ -45,7 +45,7 @@ const AnimatedBackground: React.FC = () => {
         borderRadius="full"
         animation="float 7s ease-in-out infinite"
       />
-      
+
       <style>{`
         @keyframes float {
           0%, 100% {

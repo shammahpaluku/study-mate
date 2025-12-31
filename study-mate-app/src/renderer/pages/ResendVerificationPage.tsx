@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -18,11 +18,11 @@ import {
   Link,
   VStack,
   FormErrorMessage,
-} from '@chakra-ui/react';
-import { FiMail, FiArrowLeft, FiCheckCircle } from 'react-icons/fi';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+} from "@chakra-ui/react";
+import { FiMail, FiArrowLeft, FiCheckCircle } from "react-icons/fi";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 interface ResendVerificationFormData {
   email: string;
@@ -31,8 +31,8 @@ interface ResendVerificationFormData {
 const schema = yup.object().shape({
   email: yup
     .string()
-    .email('Please enter a valid email')
-    .required('Email is required'),
+    .email("Please enter a valid email")
+    .required("Email is required"),
 });
 
 const ResendVerificationPage: React.FC = () => {
@@ -40,10 +40,10 @@ const ResendVerificationPage: React.FC = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
-  
-  const bgColor = useColorModeValue('white', 'gray.800');
-  const cardBg = useColorModeValue('white', 'gray.700');
-  const borderColor = useColorModeValue('gray.200', 'gray.600');
+
+  const bgColor = useColorModeValue("white", "gray.800");
+  const cardBg = useColorModeValue("white", "gray.700");
+  const borderColor = useColorModeValue("gray.200", "gray.600");
 
   const {
     register,
@@ -58,24 +58,24 @@ const ResendVerificationPage: React.FC = () => {
       setIsLoading(true);
       // TODO: Implement API call to resend verification email
       // await authService.resendVerificationEmail(data.email);
-      
+
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       setIsEmailSent(true);
       toast({
-        title: 'Email sent',
-        description: 'Check your email for a new verification link.',
-        status: 'success',
+        title: "Email sent",
+        description: "Check your email for a new verification link.",
+        status: "success",
         duration: 5000,
         isClosable: true,
       });
     } catch (error) {
-      console.error('Error resending verification email:', error);
+      console.error("Error resending verification email:", error);
       toast({
-        title: 'Error',
-        description: 'Failed to send verification email. Please try again.',
-        status: 'error',
+        title: "Error",
+        description: "Failed to send verification email. Please try again.",
+        status: "error",
         duration: 5000,
         isClosable: true,
       });
@@ -113,10 +113,12 @@ const ResendVerificationPage: React.FC = () => {
               <Icon as={FiCheckCircle} boxSize={8} />
             </Box>
             <Heading size="lg">Verification Email Sent</Heading>
-            <Text color="gray.600" _dark={{ color: 'gray.400' }}>
-              We've sent a new verification link to your email address. Please check your inbox and follow the instructions to verify your account.
+            <Text color="gray.600" _dark={{ color: "gray.400" }}>
+              We've sent a new verification link to your email address. Please
+              check your inbox and follow the instructions to verify your
+              account.
             </Text>
-            <Text color="gray.600" _dark={{ color: 'gray.400' }}>
+            <Text color="gray.600" _dark={{ color: "gray.400" }}>
               If you don't see the email, please check your spam folder.
             </Text>
             <Button
@@ -161,7 +163,7 @@ const ResendVerificationPage: React.FC = () => {
           <Heading as="h1" size="lg" mb={2}>
             Resend Verification Email
           </Heading>
-          <Text color="gray.600" _dark={{ color: 'gray.400' }}>
+          <Text color="gray.600" _dark={{ color: "gray.400" }}>
             Enter your email address and we'll send you a new verification link.
           </Text>
         </Box>
@@ -177,12 +179,10 @@ const ResendVerificationPage: React.FC = () => {
                 <Input
                   type="email"
                   placeholder="your@email.com"
-                  {...register('email')}
+                  {...register("email")}
                 />
               </InputGroup>
-              <FormErrorMessage>
-                {errors.email?.message}
-              </FormErrorMessage>
+              <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
             </FormControl>
 
             <Button
@@ -197,13 +197,13 @@ const ResendVerificationPage: React.FC = () => {
             </Button>
 
             <Text textAlign="center" mt={4}>
-              Remembered your password?{' '}
+              Remembered your password?{" "}
               <Link
                 as={RouterLink}
                 to="/login"
                 color="primary.500"
                 fontWeight="medium"
-                _hover={{ textDecoration: 'underline' }}
+                _hover={{ textDecoration: "underline" }}
               >
                 Sign in
               </Link>

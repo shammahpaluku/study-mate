@@ -1,16 +1,16 @@
-import React from 'react';
-import { ChakraProvider, Box, HStack } from '@chakra-ui/react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import customTheme from './theme';
-import SimplePage from './pages/SimplePage';
-import DashboardPage from './pages/DashboardPage';
-import StudyPlannerPage from './pages/StudyPlannerPage';
-import SettingsPage from './pages/SettingsPage';
-import AnalyticsPage from './pages/AnalyticsPage';
-import Navigation from './components/Navigation';
-import AnimatedBackground from './components/AnimatedBackground';
-import { SettingsProvider } from './contexts/SettingsContext';
-import { useNotifications } from './components/Notifications';
+import React from "react";
+import { ChakraProvider, Box, HStack } from "@chakra-ui/react";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import customTheme from "./theme";
+import SimplePage from "./pages/SimplePage";
+import DashboardPage from "./pages/DashboardPage";
+import StudyPlannerPage from "./pages/StudyPlannerPage";
+import SettingsPage from "./pages/SettingsPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import Navigation from "./components/Navigation";
+import AnimatedBackground from "./components/AnimatedBackground";
+import { SettingsProvider } from "./contexts/SettingsContext";
+import { useNotifications } from "./components/Notifications";
 
 const AppContent: React.FC = () => {
   const { notifications } = useNotifications();

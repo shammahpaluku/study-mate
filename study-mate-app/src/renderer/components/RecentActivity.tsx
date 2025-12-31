@@ -1,6 +1,14 @@
-import React from 'react';
-import { Box, Text, VStack, HStack, Icon, Badge, Divider } from '@chakra-ui/react';
-import { FiBook, FiClock, FiTarget } from 'react-icons/fi';
+import React from "react";
+import {
+  Box,
+  Text,
+  VStack,
+  HStack,
+  Icon,
+  Badge,
+  Divider,
+} from "@chakra-ui/react";
+import { FiBook, FiClock, FiTarget } from "react-icons/fi";
 
 interface StudyActivity {
   id: string;
@@ -26,10 +34,14 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ activities }) => {
 
   const formatTimestamp = (date: Date) => {
     const now = new Date();
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
-    
+    const diffInHours = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60 * 60),
+    );
+
     if (diffInHours < 1) {
-      const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
+      const diffInMinutes = Math.floor(
+        (now.getTime() - date.getTime()) / (1000 * 60),
+      );
       return `${diffInMinutes} minutes ago`;
     } else if (diffInHours < 24) {
       return `${diffInHours} hours ago`;
@@ -40,17 +52,19 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ activities }) => {
   };
 
   const getSubjectColor = (subject: string) => {
-    const colors = ['blue', 'green', 'purple', 'orange', 'pink', 'teal'];
-    const hash = subject.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const colors = ["blue", "green", "purple", "orange", "pink", "teal"];
+    const hash = subject
+      .split("")
+      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
     return colors[hash % colors.length];
   };
 
   if (activities.length === 0) {
     return (
-      <Box 
-        p={6} 
-        borderWidth={1} 
-        borderRadius="lg" 
+      <Box
+        p={6}
+        borderWidth={1}
+        borderRadius="lg"
         borderColor="gray.200"
         bg="white"
         boxShadow="sm"
@@ -70,10 +84,10 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ activities }) => {
   }
 
   return (
-    <Box 
-      p={6} 
-      borderWidth={1} 
-      borderRadius="lg" 
+    <Box
+      p={6}
+      borderWidth={1}
+      borderRadius="lg"
       borderColor="gray.200"
       bg="white"
       boxShadow="sm"
@@ -93,25 +107,26 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ activities }) => {
                     <Text fontWeight="600" color="gray.800">
                       {activity.subject}
                     </Text>
-                    <Badge colorScheme={getSubjectColor(activity.subject)} size="sm">
+                    <Badge
+                      colorScheme={getSubjectColor(activity.subject)}
+                      size="sm"
+                    >
                       {formatDuration(activity.duration)}
                     </Badge>
                   </HStack>
-                  
+
                   {activity.notes && (
                     <Text fontSize="sm" color="gray.600" noOfLines={2}>
                       {activity.notes}
                     </Text>
                   )}
-                  
+
                   <Text fontSize="xs" color="gray.500">
                     {formatTimestamp(activity.timestamp)}
                   </Text>
                 </VStack>
               </HStack>
-              {index < Math.min(activities.length - 1, 4) && (
-                <Divider mt={3} />
-              )}
+              {index < Math.min(activities.length - 1, 4) && <Divider mt={3} />}
             </Box>
           ))}
         </VStack>
