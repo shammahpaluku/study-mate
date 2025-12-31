@@ -200,7 +200,7 @@ const DashboardPage: React.FC = () => {
               >
                 <VStack spacing={4} align="stretch">
                   <Text fontSize="lg" fontWeight="600" color="gray.800">
-                    Today's Progress
+                    Today&apos;s Progress
                   </Text>
                   <ProgressBar
                     value={stats.studyTime}

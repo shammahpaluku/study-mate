@@ -183,7 +183,7 @@ const Notifications: React.FC<NotificationsProps> = ({
                   No notifications yet
                 </Text>
                 <Text color="gray.500" fontSize="xs" mt={1}>
-                  We'll notify you about important updates
+                  We&apos;ll notify you about important updates
                 </Text>
               </Box>
             ) : (

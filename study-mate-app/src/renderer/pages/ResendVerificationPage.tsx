@@ -114,12 +114,12 @@ const ResendVerificationPage: React.FC = () => {
             </Box>
             <Heading size="lg">Verification Email Sent</Heading>
             <Text color="gray.600" _dark={{ color: "gray.400" }}>
-              We've sent a new verification link to your email address. Please
-              check your inbox and follow the instructions to verify your
+              We&apos;ve sent a new verification link to your email address.
+              Please check your inbox and follow the instructions to verify your
               account.
             </Text>
             <Text color="gray.600" _dark={{ color: "gray.400" }}>
-              If you don't see the email, please check your spam folder.
+              If you don&apos;t see the email, please check your spam folder.
             </Text>
             <Button
               as={RouterLink}
@@ -164,7 +164,8 @@ const ResendVerificationPage: React.FC = () => {
             Resend Verification Email
           </Heading>
           <Text color="gray.600" _dark={{ color: "gray.400" }}>
-            Enter your email address and we'll send you a new verification link.
+            Enter your email address and we&apos;ll send you a new verification
+            link.
           </Text>
         </Box>
 

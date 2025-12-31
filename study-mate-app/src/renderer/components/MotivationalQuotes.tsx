@@ -120,7 +120,7 @@ const MotivationalQuotes: React.FC<MotivationalQuotesProps> = ({
 
       <VStack spacing={4} align="center" position="relative" zIndex={1}>
         <Text fontSize="2xl" color={textColor} opacity={0.8}>
-          "
+          &quot;
         </Text>
 
         <Text
@@ -131,7 +131,7 @@ const MotivationalQuotes: React.FC<MotivationalQuotesProps> = ({
           fontStyle="italic"
           lineHeight="1.6"
         >
-          "{currentQuote.text}"
+          &quot;{currentQuote.text}&quot;
         </Text>
 
         <HStack spacing={2} align="center">

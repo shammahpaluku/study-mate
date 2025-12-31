@@ -140,12 +140,12 @@ const Navigation: React.FC<NavigationProps> = ({ stats }) => {
           <Box
             p={4}
             borderRadius="lg"
-            bg={useColorModeValue("gray.50", "gray.700")}
+            bg={bg}
             borderWidth={1}
             borderColor={borderColor}
           >
             <Text fontSize="sm" fontWeight="600" color="gray.700" mb={4}>
-              Today's Progress
+              Today&apos;s Progress
             </Text>
 
             <VStack spacing={3} align="stretch">
