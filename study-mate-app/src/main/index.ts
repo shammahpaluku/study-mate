@@ -100,12 +100,15 @@ app.on("web-contents-created", (event, contents) => {
 });
 
 // Handle certificate errors
-app.on("certificate-error", (event, webContents, url, error, certificate, callback) => {
-  // Prevent certificate errors in production
-  if (process.env.NODE_ENV === "production") {
-    event.preventDefault();
-    callback(false);
-  } else {
-    callback(true);
-  }
-});
+app.on(
+  "certificate-error",
+  (event, webContents, url, error, certificate, callback) => {
+    // Prevent certificate errors in production
+    if (process.env.NODE_ENV === "production") {
+      event.preventDefault();
+      callback(false);
+    } else {
+      callback(true);
+    }
+  },
+);
