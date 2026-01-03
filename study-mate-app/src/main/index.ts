@@ -4,58 +4,69 @@ import * as path from "path";
 let mainWindow: BrowserWindow | null = null;
 
 function createWindow() {
-  console.log("Creating window...");
-
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    minWidth: 800,
+    minHeight: 600,
+    show: false, // Don't show window until ready-to-show
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
+      webSecurity: true,
     },
+    // icon: path.join(__dirname, "assets/icon.png"), // Add app icon if available
   });
-
-  console.log("Window created, loading file...");
 
   // Load the index.html file
   mainWindow
     .loadFile(path.join(__dirname, "index.html"))
     .then(() => {
-      console.log("File loaded successfully");
+      // Show window when content is ready
+      if (mainWindow) {
+        mainWindow.show();
+        mainWindow.center();
+      }
     })
     .catch((error) => {
       console.error("Failed to load file:", error);
     });
 
-  // Open the DevTools in development mode
+  // Open the DevTools only in development mode
   if (process.env.NODE_ENV === "development") {
     mainWindow.webContents.openDevTools();
   }
 
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {
-    console.log("Window closed");
     mainWindow = null;
   });
 
-  mainWindow.webContents.on(
-    "did-fail-load",
-    (event, errorCode, errorDescription) => {
-      console.error("Failed to load:", errorCode, errorDescription);
-    },
-  );
-
-  mainWindow.webContents.on("did-finish-load", () => {
-    console.log("Page finished loading");
+  // Handle window state
+  mainWindow.on("maximize", () => {
+    if (mainWindow) {
+      mainWindow.webContents.send("window-maximized");
+    }
   });
 
-  mainWindow.webContents.on(
-    "console-message",
-    (event, level, message, line, sourceId) => {
-      console.log("Renderer console:", message);
-    },
-  );
+  mainWindow.on("unmaximize", () => {
+    if (mainWindow) {
+      mainWindow.webContents.send("window-unmaximized");
+    }
+  });
+
+  mainWindow.on("focus", () => {
+    if (mainWindow) {
+      mainWindow.webContents.send("window-focused");
+    }
+  });
+
+  mainWindow.on("blur", () => {
+    if (mainWindow) {
+      mainWindow.webContents.send("window-blurred");
+    }
+  });
 }
 
 // This method will be called when Electron has finished
@@ -72,11 +83,29 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed, except on macOS.
+// Quit when all windows are closed.
 app.on("window-all-closed", () => {
-  console.log("All windows closed");
-  // Don't quit automatically on Windows
-  if (process.platform === "darwin") {
+  // On macOS the app and its menu bar stay active
+  // until the user quits explicitly with Cmd + Q
+  if (process.platform !== "darwin") {
     app.quit();
+  }
+});
+
+// Security: prevent new window creation
+app.on("web-contents-created", (event, contents) => {
+  contents.setWindowOpenHandler(({ url }) => {
+    return { action: "deny" };
+  });
+});
+
+// Handle certificate errors
+app.on("certificate-error", (event, webContents, url, error, certificate, callback) => {
+  // Prevent certificate errors in production
+  if (process.env.NODE_ENV === "production") {
+    event.preventDefault();
+    callback(false);
+  } else {
+    callback(true);
   }
 });
