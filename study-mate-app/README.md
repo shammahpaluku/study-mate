@@ -2,9 +2,62 @@
 
 A comprehensive study companion application built with Electron, React, TypeScript, and Chakra UI.
 
-## Quick Start
+## 📦 For End Users (Ready-to-Use Application)
 
-### For Users (Running the built application)
+### Download and Install
+
+**Windows Users:**
+
+**Option 1: Portable Version (Recommended)**
+1. Download `StudyMate-Portable.zip` from [Releases page](https://github.com/shammahpaluku/study-mate/releases)
+2. Extract the ZIP file to any folder
+3. Double-click `StudyMate.bat` to launch the application
+4. No installation required - completely portable!
+
+**Option 2: Installer Version**
+1. Download the `.exe` installer from [Releases page](https://github.com/shammahpaluku/study-mate/releases)
+2. Run the installer
+3. Follow the installation wizard
+4. Launch "Study Mate" from your desktop or Start Menu
+
+**macOS Users:**
+1. Download `.dmg` file from [Releases](https://github.com/shammahpaluku/study-mate/releases)
+2. Open the downloaded file
+3. Drag Study Mate to your Applications folder
+4. Launch from Applications
+
+**Linux Users:**
+1. Download appropriate package from [Releases](https://github.com/shammahpaluku/study-mate/releases)
+2. Install using your package manager:
+   - Ubuntu/Debian: `sudo dpkg -i studymate.deb`
+   - Fedora/RHEL: `sudo rpm -i studymate.rpm`
+   - Or use the AppImage: `chmod +x StudyMate.AppImage && ./StudyMate.AppImage`
+
+### ✨ What's Included
+
+The packaged application comes with:
+- **All dependencies pre-installed** - No need to run `npm install`
+- **Ready-to-run desktop application** - Just extract and run
+- **No Node.js required** (for installer versions)
+- **Automatic updates** (when enabled)
+- **Professional desktop experience** - No terminal windows
+
+### 🚀 Quick Start (Portable Version)
+
+1. Download `StudyMate-Portable.zip`
+2. Extract anywhere on your computer
+3. Double-click `StudyMate.bat`
+4. Start planning your studies!
+
+---
+
+## 🛠️ For Developers
+
+### Prerequisites
+- Node.js 18.x or higher
+- npm or yarn
+
+### Setup
 
 1. **Clone the repository:**
    ```bash
@@ -16,81 +69,37 @@ A comprehensive study companion application built with Electron, React, TypeScri
    ```bash
    npm install
    ```
-
-3. **Build and run the application:**
+ 
+3. **Development Mode:**
    ```bash
-   npm run start
+   npm run dev
    ```
+   This runs the app in development mode with hot reload and DevTools.
+
+4. **Build for Production:**
    
-   This will build the application and launch it as a proper desktop app (no terminal window).
+   **Simple Portable Build (Recommended for testing):**
+   ```bash
+   npm run build:simple
+   ```
+   Creates `StudyMate-Portable.zip` in the `release/` folder.
+   
+   **Full Installer Build:**
+   ```bash
+   npm run dist
+   ```
+   Creates installers for all platforms in the `release/` folder.
 
-### For Developers
+### Development Scripts
 
-#### Development Mode
-```bash
-npm run dev
-```
-This runs the app in development mode with hot reload and DevTools.
-
-#### Build Only
-```bash
-npm run build
-```
-Builds the application without running it.
-
-#### Run After Build
-```bash
-npm run electron
-```
-Runs the already-built application.
-
-## Application Features
-
-- **Study Planning**: Create and manage study units with time allocation
-- **Progress Tracking**: Monitor your study progress and achievements
-- **Analytics**: Visualize your study patterns and performance
-- **Responsive Design**: Works seamlessly on different screen sizes
-- **Modern UI**: Built with Chakra UI for a beautiful, accessible interface
-
-## Distribution
-
-Create distributable packages for different platforms:
-
-```bash
-# Windows
-npm run dist:win
-
-# macOS
-npm run dist:mac
-
-# Linux
-npm run dist:linux
-
-# All platforms
-npm run dist
-```
-
-The distributable files will be created in the `dist/` folder.
-
-## Development
-
-### Project Structure
-```
-study-mate-app/
-├── src/
-│   ├── main/           # Electron main process
-│   ├── renderer/       # React frontend
-│   └── components/     # Shared components
-├── dist/               # Built application
-└── webpack configs     # Build configuration
-```
-
-### Scripts
 - `npm run lint` - Run ESLint
 - `npm run format` - Format code with Prettier
-- `npm run dev` - Development mode with hot reload
-- `npm run start` - Build and run production version
-- `npm run dist` - Create distributable packages
+- `npm run build` - Build the application
+- `npm run start` - Build and run locally
+- `npm run build:simple` - Create portable package
+- `npm run dist:win` - Build Windows installer
+- `npm run dist:mac` - Build macOS package
+- `npm run dist:linux` - Build Linux packages
 
 ## Troubleshooting
 

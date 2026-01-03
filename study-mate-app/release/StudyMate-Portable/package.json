@@ -22,8 +22,7 @@
     "dist:mac": "npm run build && electron-builder --mac --publish=never",
     "dist:linux": "npm run build && electron-builder --linux --publish=never",
     "release": "npm run build && electron-builder --publish=always",
-    "build:production": "node build-production.js",
-    "build:simple": "node build-simple.js"
+    "build:production": "node build-production.js"
   },
   "keywords": [
     "study",
